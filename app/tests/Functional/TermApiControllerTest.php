@@ -81,7 +81,7 @@ class TermApiControllerTest extends AbstractTestCase
         $this->assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 
-    public function  testTermUpdateShouldReturnUpdatedTerm(): void
+    public function testTermUpdateShouldReturnUpdatedTerm(): void
     {
         $termTestFixtures = TermTestFixtures::partial();
 
