@@ -3,7 +3,7 @@ name: ci/cd-dev
 on:
   pull_request:
     branches:
-      - *
+      - main
     types:
       - closed
       - ready_for_review
