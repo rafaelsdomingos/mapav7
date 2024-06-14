@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - develop
     types:
       - closed
       - ready_for_review
@@ -24,6 +25,7 @@ jobs:
           args: '--dry-run --diff -vvv'
 
   BUILD:
+    needs: CODE_STYLE
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
