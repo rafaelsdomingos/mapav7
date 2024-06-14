@@ -1,14 +1,30 @@
-name: ci
+name: ci/cd-dev
 
 on:
   pull_request:
     branches:
-      - homolog
+      - *
+    types:
+      - closed
+      - ready_for_review
+      - review_requested
+      - opened
 
   workflow_dispatch:
 
 jobs:
+  CODE_STYLE:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run PHP-CS-Fixer
+        uses: erkenes/php-cs-fixer-action@main
+        with:
+          args: '--dry-run --diff -vvv'
+
   BUILD:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
 
@@ -33,14 +49,13 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            secultceara/mapascultural:7.3.7
-            secultceara/mapascultural:latest
+            rafaelsdomingos/mapascultural:7.3.7-dev
 
-  DEPLOY:
-    needs: BUILD
-    runs-on: mapahomolog
-    steps:
-      - name: Pull das imagens docker
-        run: cd /opt/docker/mapa7 && sudo docker-compose pull
-      - name: Restart do docker-compose para atualizar o container com a nova imagem
-        run: cd /opt/docker/mapa7 && sudo docker-compose down && sudo docker-compose up -d
+  #DEPLOY:
+  #  needs: BUILD
+  #  runs-on: mapahomolog
+  #  steps:
+  #    - name: Pull das imagens docker
+  #      run: cd /opt/docker/developv7 && sudo docker-compose pull
+  #    - name: Restart do docker-compose para atualizar o container com a nova imagem
+  #      run: cd /opt/docker/developv7 && sudo docker-compose down && sudo docker-compose up -d
