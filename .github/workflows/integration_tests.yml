@@ -1,0 +1,47 @@
+name: integration_tests
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+  workflow_dispatch:
+
+jobs:
+  CODE_STYLE:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run PHP-CS-Fixer
+        uses: erkenes/php-cs-fixer-action@main
+        with:
+          args: '--dry-run --diff -vvv'
+  
+  PHP_UNIT:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+    
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Ajusta branch do MultipleLocalAuth
+        run: cd src/plugins/MultipleLocalAuth && git checkout v3.0.0
+      
+      - name: Inicializa o mapa em modo develop
+        run: cd dev && docker compose up -d
+      
+      - name: Inicializa o mapa em modo develop
+        run: cd dev && docker compose up -d
+      
+      - name: Inicializa o mapa em modo develop
+        run: docker exec -t dev-mapas-1 composer.phar install
+      
+      - name: Cria arquivo .env na pasta app
+        run: docker exec -t dev-mapas-1 cp app/.env.example app/.env
+      
+      - name: Executa PHP_UNIT
+        run: docker exec -t dev-mapas-1 php app/bin/console tests:backend
+      
