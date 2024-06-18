@@ -30,15 +30,12 @@ jobs:
       - name: Ajusta branch do MultipleLocalAuth
         run: cd src/plugins/MultipleLocalAuth && git checkout v3.0.0
       
-      - name: Instala o unzip
-        run: sudo apt update && sudo apt install unzip -y
+      - name: Inicializa o mapa em modo develop
+        run: cd dev && docker compose up -d
+      
+      - name: Inicializa o mapa em modo develop
+        run: cd dev && docker compose up -d
 
-      - name: Inicializa o mapa em modo develop
-        run: cd dev && docker compose up -d
-      
-      - name: Inicializa o mapa em modo develop
-        run: cd dev && docker compose up -d
-      
       - name: Inicializa o mapa em modo develop
         run: docker exec -t dev-mapas-1 composer.phar install
       
