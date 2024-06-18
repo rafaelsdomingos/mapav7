@@ -31,7 +31,7 @@ jobs:
         run: cd src/plugins/MultipleLocalAuth && git checkout v3.0.0
       
       - name: Inicializa o mapa em modo develop
-        run: cd dev && docker compose build && docker-compose run -d --service-ports mapas
+        run: cd dev && docker compose build && docker-compose run -d
       
       - name: Inicializa o mapa em modo develop
         run: cd dev && docker compose up -d
