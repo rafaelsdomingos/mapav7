@@ -31,7 +31,7 @@ jobs:
         run: cd src/plugins/MultipleLocalAuth && git checkout v3.0.0
       
       - name: Instala o unzip
-        run: apt update && apt install unzip -y
+        run: sudo apt update && sudo apt install unzip -y
 
       - name: Inicializa o mapa em modo develop
         run: cd dev && docker compose up -d
