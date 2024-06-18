@@ -30,6 +30,9 @@ jobs:
       - name: Ajusta branch do MultipleLocalAuth
         run: cd src/plugins/MultipleLocalAuth && git checkout v3.0.0
       
+      - name: Instala o unzip
+        run: apt update && apt install unzip -y
+
       - name: Inicializa o mapa em modo develop
         run: cd dev && docker compose up -d
       
