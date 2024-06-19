@@ -31,12 +31,9 @@ jobs:
         run: cd src/plugins/MultipleLocalAuth && git checkout v3.0.0
       
       - name: Inicializa o mapa em modo develop
-        run: cd dev && docker compose build && docker-compose run -d
+        run: cd dev && docker compose build && docker-compose run -d --service-ports mapas
       
-      - name: Inicializa o mapa em modo develop
-        run: cd dev && docker compose up -d
-
-      - name: Inicializa o mapa em modo develop
+      - name: Executa o composer install
         run: docker exec -t dev-mapas-1 composer.phar install
       
       - name: Cria arquivo .env na pasta app
