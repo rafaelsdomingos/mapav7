@@ -1,6 +1,7 @@
 version: '2'
 services:
   mapas:
+    container_name: dev-mapas-1
     build:
       context: ../
       dockerfile: docker/Dockerfile
